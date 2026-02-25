@@ -39,6 +39,7 @@ from holmes.core.tools_utils.tool_context_window_limiter import (
 )
 from holmes.core.tools_utils.tool_executor import ToolExecutor
 from holmes.core.tracing import DummySpan
+from holmes.utils.otel_context import bind_with_current_otel_context
 from holmes.core.truncation.input_context_window_limiter import (
     limit_input_context_window,
 )
@@ -566,7 +567,7 @@ class ToolCallingLLM:
                     logging.debug(f"Tool to call: {t}")
                     tool_number = tool_number_offset + tool_index
 
-                    future = executor.submit(
+                    task = bind_with_current_otel_context(
                         self._invoke_llm_tool_call,
                         tool_to_call=t,
                         previous_tool_calls=tool_calls,
@@ -574,6 +575,7 @@ class ToolCallingLLM:
                         tool_number=tool_number,
                         request_context=request_context,
                     )
+                    future = executor.submit(task)
                     futures_tool_numbers[future] = tool_number
                     futures.append(future)
 
@@ -1104,7 +1106,7 @@ class ToolCallingLLM:
                 for tool_index, t in enumerate(tools_to_call, 1):  # type: ignore
                     tool_number = tool_number_offset + tool_index
 
-                    future = executor.submit(
+                    task = bind_with_current_otel_context(
                         self._invoke_llm_tool_call,
                         tool_to_call=t,  # type: ignore
                         previous_tool_calls=tool_calls,
@@ -1113,6 +1115,7 @@ class ToolCallingLLM:
                         session_approved_prefixes=session_prefixes,
                         request_context=request_context,
                     )
+                    future = executor.submit(task)
                     futures.append(future)
                     yield StreamMessage(
                         event=StreamEvents.START_TOOL,
