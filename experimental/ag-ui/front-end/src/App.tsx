@@ -16,6 +16,19 @@ const App: React.FC = () => {
   const [pageContext, setPageContext] = useState<ContextItem[]>([]);
   const [triggerQuery, setTriggerQuery] = useState<string | null>(null);
 
+  // Dark mode: prefer saved preference, then system preference, default light
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const stored = localStorage.getItem('ag-ui-dark-mode');
+    if (stored !== null) return stored === 'true';
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) return true;
+    return false;
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('ag-ui-dark-mode', String(darkMode));
+  }, [darkMode]);
+
   // Store separate queries for each page
   const [pageQueries, setPageQueries] = useState<Record<ObservabilityPage, string>>({
     metrics: '',
@@ -132,7 +145,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app">
+    <div className="app" data-theme={darkMode ? 'dark' : 'light'}>
       <div className="left-sidebar">
         <div className="sidebar-header">
           <h2>ExampleOps ✨</h2>
@@ -161,6 +174,18 @@ const App: React.FC = () => {
             Traces
           </button>
         </nav>
+        <div className="theme-toggle-wrap">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={() => setDarkMode((d) => !d)}
+            title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            <span className="theme-toggle-icon" aria-hidden>{darkMode ? '☀️' : '🌙'}</span>
+            <span className="theme-toggle-label">{darkMode ? 'Light' : 'Dark'} mode</span>
+          </button>
+        </div>
         <div className="sidebar-footer">
           <div className="credit-text">✨ vibe-coded with love by</div>
           <a

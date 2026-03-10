@@ -446,3 +446,111 @@
     opacity: 1;
   }
 }
+
+/* ========== Dark mode (chat panel) ========== */
+.app[data-theme="dark"] .chat-controls {
+  border-top-color: #2d3238;
+  background-color: #22262c;
+}
+
+.app[data-theme="dark"] .chat-run-stats {
+  color: #9ca3af;
+  background-color: #22262c;
+  border-top-color: #2d3238;
+}
+
+.app[data-theme="dark"] .auto-scroll-checkbox {
+  color: #d1d5db;
+}
+
+.app[data-theme="dark"] .chat-messages {
+  background-color: transparent;
+}
+
+.app[data-theme="dark"] .assistant-message {
+  background: linear-gradient(to right, rgba(45, 50, 56, 0.95) 0%, rgba(34, 38, 44, 0.9) 100%);
+  color: #e5e7eb;
+  border-color: rgba(45, 50, 56, 0.8);
+}
+
+.app[data-theme="dark"] .assistant-message .message-text code {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #e5e7eb;
+}
+
+.app[data-theme="dark"] .assistant-message .message-text pre {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.app[data-theme="dark"] .assistant-message .message-text pre code {
+  background-color: transparent;
+  color: #e5e7eb;
+}
+
+.app[data-theme="dark"] .assistant-message .message-text blockquote {
+  border-left-color: rgba(148, 163, 184, 0.5);
+}
+
+.app[data-theme="dark"] .message-run-stats {
+  color: #9ca3af;
+}
+
+.app[data-theme="dark"] .message-time {
+  color: rgba(229, 231, 235, 0.7);
+}
+
+.app[data-theme="dark"] .chat-header {
+  background-color: #0d9488;
+}
+
+.app[data-theme="dark"] .error-message {
+  background-color: #451a1a;
+  color: #fecaca;
+  border-color: #7f1d1d;
+}
+
+.app[data-theme="dark"] .retry-message-button {
+  background-color: #dc2626;
+  color: white;
+}
+
+.app[data-theme="dark"] .retry-message-button:hover {
+  background-color: #b91c1c;
+}
+
+.app[data-theme="dark"] .chat-input {
+  border-top-color: #2d3238;
+  background-color: #1a1d21;
+}
+
+.app[data-theme="dark"] .chat-input input {
+  background-color: #22262c;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+.app[data-theme="dark"] .chat-input input::placeholder {
+  color: #6b7280;
+}
+
+.app[data-theme="dark"] .chat-input input:focus {
+  border-color: #3b82f6;
+}
+
+.app[data-theme="dark"] .chat-input input:disabled {
+  background-color: #22262c;
+  color: #6b7280;
+}
+
+.app[data-theme="dark"] .chat-input button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.app[data-theme="dark"] .thinking-message {
+  background-color: #22262c;
+  color: #9ca3af;
+}
+
+.app[data-theme="dark"] .thinking-dots span {
+  background-color: #9ca3af;
+}
